@@ -10,7 +10,7 @@ public class FastTask
     {
         var any = await Task.WhenAny(task1, task2);
 
-        if (any == task1)
+        if (any == task1 && !ct.IsCancellationRequested)
         {
             return true;
         }

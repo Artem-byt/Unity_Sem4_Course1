@@ -10,13 +10,8 @@ public class Unit : MonoBehaviour
 
     private bool _isHealDone = true;
 
-    private void Awake()
-    {
-       Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.A)).Subscribe(ReceiveHealing);
-    }
 
-
-    public void ReceiveHealing(long obj)
+    public void ReceiveHealing()
     {
         if(_isHealDone == true)
         {
