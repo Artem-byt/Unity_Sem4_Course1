@@ -8,6 +8,6 @@ public struct Task3 : IJobParallelForTransform
 {
     public void Execute(int index, TransformAccess transform)
     {
-        transform.rotation *= Quaternion.Euler(30f, 30f, 30f);
+        transform.rotation *= Quaternion.Euler(0.8f, 0f, 0.8f);
     }
 }

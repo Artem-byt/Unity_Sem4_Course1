@@ -23,6 +23,8 @@ public class Root : MonoBehaviour
     [SerializeField] private Transform[] _objectsForRotating;
     private TransformAccessArray _transformAccessArray;
 
+    private bool _isTask3;
+
     private void Start()
     {
         _numbers = new NativeArray<int>(5, Allocator.Persistent);
@@ -39,6 +41,17 @@ public class Root : MonoBehaviour
         _btnTask3.onClick.AddListener(DoTask3);
 
         _btnReset.onClick.AddListener(ResetTasks);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isTask3)
+        {
+            Task3 task3 = new Task3();
+            JobHandle task3Handle = task3.Schedule(_transformAccessArray);
+            task3Handle.Complete();
+        }
+
     }
 
     private void DoTask1()
@@ -69,10 +82,7 @@ public class Root : MonoBehaviour
 
     private void DoTask3()
     {
-        Task3 task3 = new Task3();
-
-        JobHandle task3Handle = task3.Schedule(_transformAccessArray);
-        task3Handle.Complete();
+        _isTask3 = true;
     }
 
     private void ShowArray<T>(NativeArray<T> values, string message) where T : struct
@@ -97,6 +107,8 @@ public class Root : MonoBehaviour
             _positions[i] = Random.insideUnitCircle;
             _velocities[i] = Random.insideUnitCircle;
         }
+
+        _isTask3 = false;
     }
 
     private void OnDestroy()
