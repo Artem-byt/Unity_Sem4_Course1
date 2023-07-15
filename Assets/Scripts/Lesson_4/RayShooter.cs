@@ -1,66 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class RayShooter : FireAction
 {
-    private Camera camera; 
+    private Camera camera;
+    [SyncVar] private GameObject shoot;
     protected override void Start()
-    { 
+    {
         base.Start();
-        camera = GetComponentInChildren<Camera>(); 
+        camera = GetComponentInChildren<Camera>();
     }
 
     private void Update()
-    { 
-        if (Input.GetMouseButtonDown(0)) 
-        { 
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             Shooting();
-        } 
-        if (Input.GetKeyDown(KeyCode.R)) 
-        { 
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             Reloading();
         }
-        if (Input.anyKey && !Input.GetKeyDown(KeyCode.Escape)) 
-        { 
+        if (Input.anyKey && !Input.GetKeyDown(KeyCode.Escape))
+        {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false; 
+            Cursor.visible = false;
         }
-        else 
-        { 
+        else
+        {
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true; 
-        } 
+            Cursor.visible = true;
+        }
     }
 
     protected override void Shooting()
     {
-        base.Shooting(); 
-        if (bullets.Count > 0) 
+        base.Shooting();
+        if (bullets.Count > 0)
         {
             StartCoroutine(Shoot());
         }
     }
 
+
     private IEnumerator Shoot()
     {
-        if (reloading) 
+
+        if (reloading)
         {
-            yield break; 
-        }
-        var point = new Vector3(camera.pixelWidth / 2, camera.pixelHeight / 2, 0); 
-        var ray = camera.ScreenPointToRay(point); 
-        if (!Physics.Raycast(ray, out var hit)) 
-        { 
             yield break;
-        } 
-        var shoot = bullets.Dequeue(); 
-        bulletCount = bullets.Count.ToString(); 
+        }
+        var point = new Vector3(camera.pixelWidth / 2, camera.pixelHeight / 2, 0);
+        var ray = camera.ScreenPointToRay(point);
+        if (!Physics.Raycast(ray, out var hit))
+        {
+            yield break;
+        }
+        shoot = bullets.Dequeue();
+        bulletCount = bullets.Count.ToString();
         ammunition.Enqueue(shoot);
         shoot.SetActive(true);
-        shoot.transform.position = hit.point;
-        shoot.transform.parent = hit.transform;
-        yield return new WaitForSeconds(2.0f); 
-        shoot.SetActive(false); 
+        shoot.transform.position = point;
+        shoot.transform.parent = shoot.transform.parent = transform;
+        yield return new WaitForSeconds(2.0f);
+        shoot.SetActive(false);
     }
 }

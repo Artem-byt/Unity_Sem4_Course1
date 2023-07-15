@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public abstract class FireAction : MonoBehaviour
+public abstract class FireAction : NetworkBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int startAmmunition = 20;
     protected string bulletCount = string.Empty;
     protected Queue<GameObject> bullets = new Queue<GameObject>();
     protected Queue<GameObject> ammunition = new Queue<GameObject>();
-    protected bool reloading = false; 
+    protected bool reloading = false;
 
     public string BulletCount => bulletCount;
     protected virtual void Start()

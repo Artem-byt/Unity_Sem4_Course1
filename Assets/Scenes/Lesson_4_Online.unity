@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996410257}
   - component: {fileID: 996410256}
+  - component: {fileID: 996410258}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -217,6 +218,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!81 &996410258
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996410255}
+  m_Enabled: 1
 --- !u!1001 &1490506149
 PrefabInstance:
   m_ObjectHideFlags: 0

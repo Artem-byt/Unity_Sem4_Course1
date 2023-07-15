@@ -10,6 +10,7 @@ public class PlayerCharacter : Charachter
     private CharacterController characterController;
     private MouseLook mouseLook;
     private Vector3 currentVelocity;
+    private Camera camera;
     protected override FireAction fireAction { get; set; }
 
     protected override void Initiate()
@@ -21,6 +22,7 @@ public class PlayerCharacter : Charachter
         characterController ??= gameObject.AddComponent<CharacterController>();
         mouseLook = GetComponentInChildren<MouseLook>();
         mouseLook ??= gameObject.AddComponent<MouseLook>();
+        camera = GetComponentInChildren<Camera>();
     }
 
     public override void Movement()
@@ -62,16 +64,17 @@ public class PlayerCharacter : Charachter
 
     private void OnGUI()
     {
-        if (Camera.main == null)
+        if (camera == null)
         {
             return;
         }
         var info = $"Health: {health}\nClip: {fireAction.BulletCount}";
-        var size = 12; var bulletCountSize = 50;
-        var posX = Camera.main.pixelWidth / 2 - size / 4;
-        var posY = Camera.main.pixelHeight / 2 - size / 2;
-        var posXBul = Camera.main.pixelWidth - bulletCountSize * 2;
-        var posYBul = Camera.main.pixelHeight - bulletCountSize;
+        var size = 12; 
+        var bulletCountSize = 50;
+        var posX = camera.pixelWidth / 2 - size / 4;
+        var posY = camera.pixelHeight / 2 - size / 2;
+        var posXBul = camera.pixelWidth - bulletCountSize * 2;
+        var posYBul = camera.pixelHeight - bulletCountSize;
         GUI.Label(new Rect(posX, posY, size, size), "+");
         GUI.Label(new Rect(posXBul, posYBul, bulletCountSize * 2, bulletCountSize * 2), info);
     }
