@@ -36,7 +36,8 @@ public class PlayerCharacter : Charachter
             var moveZ = Input.GetAxis("Vertical") * movingSpeed;
             var movement = new Vector3(moveX, 0, moveZ);
             movement = Vector3.ClampMagnitude(movement, movingSpeed);
-            movement *= Time.deltaTime; if (Input.GetKey(KeyCode.LeftShift))
+            movement *= Time.deltaTime; 
+            if (Input.GetKey(KeyCode.LeftShift))
             {
                 movement *= acceleration;
             }

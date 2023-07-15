@@ -79,3 +79,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2756118584936722046, guid: 5531d59593d18924a905845fb60d1491, type: 3}
+  spawns: {fileID: 8082440194544051105, guid: a106ba80ddeecba4a86a1c9b9ab652c3, type: 3}

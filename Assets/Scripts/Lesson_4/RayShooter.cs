@@ -48,7 +48,7 @@ public class RayShooter : FireAction
         {
             yield break; 
         }
-        var point = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2, 0); 
+        var point = new Vector3(camera.pixelWidth / 2, camera.pixelHeight / 2, 0); 
         var ray = camera.ScreenPointToRay(point); 
         if (!Physics.Raycast(ray, out var hit)) 
         { 
