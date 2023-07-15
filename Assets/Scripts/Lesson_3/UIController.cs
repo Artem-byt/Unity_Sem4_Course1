@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.VersionControl;
-using UnityEditor.PackageManager;
 
 
 public class UIController : MonoBehaviour
@@ -42,20 +38,20 @@ public class UIController : MonoBehaviour
     }
 
     private void Connect()
-    { 
+    {
+        client.SetName(inputName.text);
         client.Connect();
-        client.SendMessage("name__" + inputName.text);
-        inputField.DeactivateInputField();
+        inputName.interactable= false;
     }
 
     private void Disconnect() 
     {
         client.Disconnect();
-        inputField.ActivateInputField();
+        inputName.interactable = true;
         inputName.text = "";
     }
     private void SendMessage() {
-        client.SendMessage("massage__" + inputField.text); 
+        client.SendMessage("massage_" + inputField.text); 
         inputField.text = ""; 
     }
     public void ReceiveMessage(object message) 

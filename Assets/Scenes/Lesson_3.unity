@@ -161,6 +161,7 @@ MonoBehaviour:
   buttonDisconnectClient: {fileID: 94800285}
   buttonSendMessage: {fileID: 1603483861}
   inputField: {fileID: 1911392394}
+  inputName: {fileID: 521304741}
   textField: {fileID: 1015053432}
   server: {fileID: 778956072}
   client: {fileID: 2091692403}
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1141,9 +1142,9 @@ RectTransform:
   m_Father: {fileID: 1911392393}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -312, y: 0.512}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -91.70001, y: 16.512001}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &521304741
@@ -1564,10 +1565,10 @@ RectTransform:
   m_Father: {fileID: 90830374}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -91.384, y: -16.1821}
-  m_SizeDelta: {x: 603.23, y: 164.1503}
+  m_AnchorMin: {x: 0, y: 0.11384088}
+  m_AnchorMax: {x: 0.731, y: 0.776841}
+  m_AnchoredPosition: {x: -0.32000732, y: 2.0035095}
+  m_SizeDelta: {x: -0.6300049, y: 3.9930115}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1015053430
 MonoBehaviour:
@@ -2184,7 +2185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.50000095}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1311850216
@@ -2514,10 +2515,10 @@ RectTransform:
   m_Father: {fileID: 90830374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306, y: -123}
-  m_SizeDelta: {x: 176.4541, y: 31.0284}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 156.14, y: 22.5}
+  m_SizeDelta: {x: 176.4541, y: 31.028397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1603483861
 MonoBehaviour:
@@ -2640,10 +2641,10 @@ RectTransform:
   m_Father: {fileID: 90830374}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -245.40169, y: 106.20157}
-  m_SizeDelta: {x: -490.806, y: -212.4025}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 154.59833, y: -32.79843}
+  m_SizeDelta: {x: 309.19397, y: 75.5975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1609967814
 MonoBehaviour:
@@ -2812,10 +2813,10 @@ RectTransform:
   m_Father: {fileID: 1015053429}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 291, y: -1}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 375.6848, y: -156.5058}
+  m_SizeDelta: {x: -494.0237, y: 21.569397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1906176374
 MonoBehaviour:
@@ -2940,10 +2941,10 @@ RectTransform:
   m_Father: {fileID: 90830374}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.6846, y: -123}
-  m_SizeDelta: {x: 417.0952, y: 31.024}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 384.7, y: 22.5}
+  m_SizeDelta: {x: 417.0952, y: 31.024002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1911392394
 MonoBehaviour:
@@ -3274,7 +3275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

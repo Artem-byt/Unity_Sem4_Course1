@@ -1,12 +1,14 @@
 using System.Text;
 using UnityEngine.Networking;
 using UnityEngine;
-using UnityEditor.VersionControl;
+using static Client;
 
 public class Client : MonoBehaviour
 {
     public delegate void OnMessageReceive(object message);
+    public delegate void OnConnected(string message);
     public event OnMessageReceive onMessageReceive;
+    public event OnConnected onConnected;
 
     private const int MAX_CONNECTION = 10;
 
@@ -21,6 +23,7 @@ public class Client : MonoBehaviour
 
     public void Connect()
     {
+        onConnected += SendMessage;
         NetworkTransport.Init(); 
         ConnectionConfig cc = new ConnectionConfig(); 
         _reliableChannel = cc.AddChannel(QosType.Reliable);
@@ -29,7 +32,6 @@ public class Client : MonoBehaviour
         _hostID = NetworkTransport.AddHost(topology, _port);
 
         _connectionID = NetworkTransport.Connect(_hostID, "127.0.0.1", _serverPort, 0, out _error);
-
         if ((NetworkError)_error == NetworkError.Ok)
         {
             _isConnected = true;
@@ -41,6 +43,12 @@ public class Client : MonoBehaviour
         }
 
     }
+
+    private void OnConnectedToServer()
+    {
+        SendMessage("name_" + _name);
+    }
+
     public void SetName(string name)
     {
         _name = name;
@@ -73,7 +81,8 @@ public class Client : MonoBehaviour
                 case NetworkEventType.Nothing:
                     break;
                 case NetworkEventType.ConnectEvent:
-                    onMessageReceive?.Invoke($"Youhave been connected to server."); 
+                    onMessageReceive?.Invoke($"You have been connected to server.");
+                    OnConnectedToServer();
                     Debug.Log($"You have been connectedto server.");
                     break;
                 case NetworkEventType.DataEvent:
@@ -83,8 +92,8 @@ public class Client : MonoBehaviour
                     break;
                 case NetworkEventType.DisconnectEvent:
                     _isConnected = false; 
-                    onMessageReceive?.Invoke($"Youhave been disconnected from server."); 
-                    Debug.Log($"You have been disconnectedfrom server.");
+                    onMessageReceive?.Invoke($"You have been disconnected from server."); 
+                    Debug.Log($"You have been disconnected from server.");
                     break;
                 case NetworkEventType.BroadcastEvent:
                     break;
@@ -93,10 +102,10 @@ public class Client : MonoBehaviour
         }
     }
 
-    public void SendMessage(string message, int connectionID)
+    public void SendMessage(string message)
     {
         byte[] buffer = Encoding.Unicode.GetBytes(message);
-        NetworkTransport.Send(_hostID, connectionID, _reliableChannel, buffer, message.Length * sizeof(char), out _error);
+        NetworkTransport.Send(_hostID, _connectionID, _reliableChannel, buffer, message.Length * sizeof(char), out _error);
         if ((NetworkError)_error != NetworkError.Ok)
         {
             Debug.Log((NetworkError)_error);

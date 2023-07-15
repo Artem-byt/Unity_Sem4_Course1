@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using System.Text;
-using UnityEditor;
-using UnityEditor.MemoryProfiler;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -13,7 +10,8 @@ public class Server : MonoBehaviour
     private int hostID;
     private int reliableChannel;
     private bool isStarted = false;
-    private byte error; Dictionary<int, string> connectionIDs = new Dictionary<int, string>();
+    private byte error; 
+    Dictionary<int, string> connectionIDs = new Dictionary<int, string>();
 
     private void Update()
     {
@@ -32,16 +30,19 @@ public class Server : MonoBehaviour
                 case NetworkEventType.Nothing:
                     break;
                 case NetworkEventType.ConnectEvent:
+                    Debug.Log(connectionId);
                     connectionIDs.Add(connectionId, "");
                     break;
                 case NetworkEventType.DataEvent:
                     string message = Encoding.Unicode.GetString(recBuffer, 0, dataSize);
-                    SendSpecificMessage(connectionId, message, ParseMassage(connectionId, message));
+                    Debug.Log("message: " + message);
+                    (MessageType, string) parsedMessage = ParseMassage(connectionId, message);
+                    SendSpecificMessage(connectionId, parsedMessage.Item2, parsedMessage.Item1);
                     break;
                 case NetworkEventType.DisconnectEvent:
                     connectionIDs.Remove(connectionId);
-                    SendMessageToAll($"Player{connectionId}has disconnected.");
-                    Debug.Log($"Player{connectionId}has disconnected.");
+                    SendMessageToAll($"Player {connectionId}has disconnected.", connectionId);
+                    Debug.Log($"Player {connectionId}has disconnected.");
                     break;
                     case NetworkEventType.BroadcastEvent:
                     break;
@@ -54,36 +55,37 @@ public class Server : MonoBehaviour
     {
         if (messageType == MessageType.name)
         {
-            SendMessageToAll($"Player{connectionIDs[connectionId]} has connected");
-            Debug.Log($"Player{connectionId}:{message}");
-            return;
+            SendMessageToAll($"Player {connectionIDs[connectionId]} has connected", connectionId);
+            Debug.Log($"Player {connectionId}:{message}");
+            return; 
         }
         if (messageType == MessageType.message)
         {
-            SendMessageToAll($"Player{connectionIDs[connectionId]}:{message}");
-            Debug.Log($"Player{connectionIDs[connectionId]}:{message} : {connectionId}");
+            SendMessageToAll($"Player {connectionIDs[connectionId]}:{message}", -1);
+            Debug.Log($"Player {connectionIDs[connectionId]}:{message} : {connectionId}");
         }
 
     }
 
-    private MessageType ParseMassage(int connectionId, string message)
+    private (MessageType, string) ParseMassage(int connectionId, string message)
     {
-        string[] messages = message.Split("__");
+        string[] messages = message.Split("_");
         string aggregateMessage = AggregateMessage(messages);
         if (messages[0] == "name")
         {
             connectionIDs[connectionId] = aggregateMessage;
-            if (message == string.Empty)
+            Debug.Log(aggregateMessage);
+            if (aggregateMessage == string.Empty)
             {
                 connectionIDs[connectionId] =  connectionId.ToString();
             }
-            return MessageType.name;
+            return (MessageType.name, aggregateMessage);
         }
         if (messages[0] == "massage")
         {
-            return MessageType.message;
+            return (MessageType.message, aggregateMessage);
         }
-        return MessageType.nu1l;
+        return (MessageType.nu1l, aggregateMessage);
     }
 
     private string AggregateMessage(string[] messages)
@@ -91,7 +93,7 @@ public class Server : MonoBehaviour
         string message = messages[1];
         for(int i = 2; i < messages.Length; i++)
         {
-            message += "__" + messages[i];
+            message += "_" + messages[i];
         }
         return message;
     }
@@ -104,6 +106,7 @@ public class Server : MonoBehaviour
         hostID = NetworkTransport.AddHost(topology, port);
 
         isStarted = true;
+        Debug.Log("Server start");
     }
 
     public void ShutDownServer()
@@ -128,12 +131,16 @@ public class Server : MonoBehaviour
         }
     }
 
-    public void SendMessageToAll(string message)
+    public void SendMessageToAll(string message, int exception)
     {
-        for (int i = 0; i < connectionIDs.Count; i++)
+        foreach(var connection in connectionIDs)
         {
-            SendMessage(message, connectionIDs[i]);
+            if(connection.Key != exception)
+            {
+                SendMessage(message, connection.Key);
+            }
         }
+
 
     }
 }
