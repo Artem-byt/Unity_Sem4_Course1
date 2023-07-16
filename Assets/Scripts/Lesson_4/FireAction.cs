@@ -21,17 +21,8 @@ public abstract class FireAction : NetworkBehaviour
     {
         for (var i = 0; i < startAmmunition; i++)
         {
-            GameObject bullet;
-            if (bulletPrefab == null)
-            {
-                bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                bullet.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            }
-            else
-            {
-                bullet = Instantiate(bulletPrefab);
-            }
-            //bullet.SetActive(false);
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.SetActive(false);
             ammunition.Enqueue(bullet);
         }
     }

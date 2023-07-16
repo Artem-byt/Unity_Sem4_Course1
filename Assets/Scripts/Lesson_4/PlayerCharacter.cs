@@ -16,7 +16,7 @@ public class PlayerCharacter : Charachter
     protected override void Initiate()
     {
         base.Initiate();
-        fireAction = gameObject.AddComponent<RayShooter>();
+        fireAction = gameObject.GetComponent<RayShooter>();
         fireAction.Reloading(); 
         characterController = GetComponentInChildren<CharacterController>();
         characterController ??= gameObject.AddComponent<CharacterController>();

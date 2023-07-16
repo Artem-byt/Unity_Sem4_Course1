@@ -64,7 +64,7 @@ public class RayShooter : FireAction
         shoot.transform.position = hit.point;
         shoot.transform.parent = hit.transform;
         yield return new WaitForSeconds(2.0f);
-        //shoot.SetActive(false);
+        shoot.SetActive(false);
 
     }
 }
