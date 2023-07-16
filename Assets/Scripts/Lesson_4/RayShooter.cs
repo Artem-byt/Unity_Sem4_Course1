@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 public class RayShooter : FireAction
 {
     private Camera camera;
-    [SyncVar] private GameObject shoot;
     protected override void Start()
     {
         base.Start();
@@ -58,13 +57,14 @@ public class RayShooter : FireAction
         {
             yield break;
         }
-        shoot = bullets.Dequeue();
+        var shoot = bullets.Dequeue();
         bulletCount = bullets.Count.ToString();
         ammunition.Enqueue(shoot);
         shoot.SetActive(true);
-        shoot.transform.position = point;
-        shoot.transform.parent = shoot.transform.parent = transform;
+        shoot.transform.position = hit.point;
+        shoot.transform.parent = hit.transform;
         yield return new WaitForSeconds(2.0f);
-        shoot.SetActive(false);
+        //shoot.SetActive(false);
+
     }
 }

@@ -15,6 +15,7 @@ public abstract class FireAction : NetworkBehaviour
     protected Queue<GameObject> ammunition = new Queue<GameObject>();
     protected bool reloading = false;
 
+
     public string BulletCount => bulletCount;
     protected virtual void Start()
     {
@@ -30,7 +31,7 @@ public abstract class FireAction : NetworkBehaviour
             {
                 bullet = Instantiate(bulletPrefab);
             }
-            bullet.SetActive(false);
+            //bullet.SetActive(false);
             ammunition.Enqueue(bullet);
         }
     }
