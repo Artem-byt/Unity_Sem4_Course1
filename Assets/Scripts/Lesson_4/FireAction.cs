@@ -22,6 +22,7 @@ public abstract class FireAction : NetworkBehaviour
         for (var i = 0; i < startAmmunition; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab);
+            NetworkServer.Spawn(bullet);
             bullet.SetActive(false);
             ammunition.Enqueue(bullet);
         }

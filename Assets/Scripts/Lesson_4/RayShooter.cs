@@ -14,24 +14,28 @@ public class RayShooter : FireAction
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(hasAuthority)
         {
-            Shooting();
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shooting();
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reloading();
+            }
+            if (Input.anyKey && !Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reloading();
-        }
-        if (Input.anyKey && !Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        
     }
 
     protected override void Shooting()
