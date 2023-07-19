@@ -17,7 +17,7 @@ public class PlayerCharacter : Charachter
     {
         base.Initiate();
         fireAction = gameObject.GetComponent<RayShooter>();
-        fireAction.Reloading(); 
+        fireAction.Reloading();
         characterController = GetComponentInChildren<CharacterController>();
         characterController ??= gameObject.AddComponent<CharacterController>();
         mouseLook = GetComponentInChildren<MouseLook>();
@@ -38,7 +38,7 @@ public class PlayerCharacter : Charachter
             var moveZ = Input.GetAxis("Vertical") * movingSpeed;
             var movement = new Vector3(moveX, 0, moveZ);
             movement = Vector3.ClampMagnitude(movement, movingSpeed);
-            movement *= Time.deltaTime; 
+            movement *= Time.deltaTime;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 movement *= acceleration;
@@ -69,7 +69,7 @@ public class PlayerCharacter : Charachter
             return;
         }
         var info = $"Health: {health}\nClip: {fireAction.BulletCount}";
-        var size = 12; 
+        var size = 12;
         var bulletCountSize = 50;
         var posX = camera.pixelWidth / 2 - size / 4;
         var posY = camera.pixelHeight / 2 - size / 2;

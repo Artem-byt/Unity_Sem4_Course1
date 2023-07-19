@@ -11,21 +11,36 @@ public abstract class FireAction : NetworkBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int startAmmunition = 20;
     protected string bulletCount = string.Empty;
+
     protected Queue<GameObject> bullets = new Queue<GameObject>();
     protected Queue<GameObject> ammunition = new Queue<GameObject>();
     protected bool reloading = false;
 
-
     public string BulletCount => bulletCount;
     protected virtual void Start()
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         for (var i = 0; i < startAmmunition; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab);
             NetworkServer.Spawn(bullet);
-            bullet.SetActive(false);
+            //bullet.SetActive(false);
+            RpcEnqueueAmmunition(bullet);
+        }
+    }
+
+    [ClientRpc]
+    private void RpcEnqueueAmmunition(GameObject bullet)
+    {
+        if (hasAuthority)
+        {
             ammunition.Enqueue(bullet);
         }
+       
     }
 
     public virtual async void Reloading()
