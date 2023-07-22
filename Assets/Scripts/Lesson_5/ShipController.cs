@@ -5,12 +5,13 @@ using UnityEngine.Networking;
 
 public class ShipController : NetworkMovableObject
 {
-    public string PlayerName { get => _playerName; set => _playerName = value; }
     protected override float _speed => _shipSpeed; 
     [SerializeField] private Transform _cameraAttach; 
-    private CameraOrbit _cameraOrbit; private PlayerLabel _playerLabel; 
-    private float _shipSpeed; private Rigidbody _rb; 
-    [SyncVar] private string _playerName; 
+    private CameraOrbit _cameraOrbit; 
+    private PlayerLabel _playerLabel; 
+    private float _shipSpeed; 
+    private Rigidbody _rb; 
+    [SyncVar] public string playerName; 
 
     private void OnGUI() 
     { 
@@ -28,7 +29,7 @@ public class ShipController : NetworkMovableObject
         {
             return;
         }
-        gameObject.name = _playerName;
+        gameObject.name = playerName;
         _cameraOrbit = FindObjectOfType<CameraOrbit>();
         _cameraOrbit.Initiate(_cameraAttach == null ? transform : _cameraAttach);
         _playerLabel = GetComponentInChildren<PlayerLabel>();
@@ -66,6 +67,5 @@ public class ShipController : NetworkMovableObject
     { 
         _cameraOrbit?.CameraMovement(); 
     }
-
 
 }
