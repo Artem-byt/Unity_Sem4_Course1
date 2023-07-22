@@ -39,7 +39,9 @@ public class PlanetOrbit : NetworkMovableObject
         _currentRotationAngle += Time.deltaTime * _rotationSpeed; 
         _currentRotationAngle = Mathf.Clamp(_currentRotationAngle, 0, 361); 
         if (_currentRotationAngle >= 360) 
-        { _currentRotationAngle = 0; } 
+        { 
+            _currentRotationAngle = 0;
+        } 
         transform.rotation = Quaternion.AngleAxis(_currentRotationAngle, transform.up); 
         _currentAng += _circleRadians * _circleInSecond * Time.deltaTime; 
         SendToServer(); 
