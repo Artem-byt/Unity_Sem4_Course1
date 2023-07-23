@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraAttach: {fileID: 366713469801335995}
+  _playerName: 
+  _spawns: {fileID: 449952923721220934, guid: 53c358a1c2a05b54ba200e041fe05878, type: 3}
 --- !u!114 &6675667802644119724
 MonoBehaviour:
   m_ObjectHideFlags: 0

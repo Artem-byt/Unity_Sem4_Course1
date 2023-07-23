@@ -23,9 +23,10 @@ public class PlayerLabel : MonoBehaviour
             var collider = obj.GetComponent<Collider>();
 
             string name;
-            if (obj.GetComponent<ShipController>())
+            if (obj.GetComponent<ShipController>() != null)
             {
-                name = obj.GetComponent<ShipController>().playerName;
+                //name = obj.GetComponent<ShipController>().playerName;
+                name = obj.name;
             }
             else
             {

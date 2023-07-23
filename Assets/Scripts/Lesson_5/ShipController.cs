@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ShipController : NetworkMovableObject
 {
+    public string PlayerName { get { return _playerName; } set { _playerName = value; gameObject.name = value;} }
     protected override float _speed => _shipSpeed; 
     [SerializeField] private Transform _cameraAttach; 
     private CameraOrbit _cameraOrbit; 
     private PlayerLabel _playerLabel; 
     private float _shipSpeed; 
     private Rigidbody _rb; 
-    [SyncVar] public string playerName; 
+    [SerializeField][SyncVar] private string _playerName;
+    [SerializeField] private GameObject _spawns;
+
 
     private void OnGUI() 
     { 
@@ -29,7 +31,7 @@ public class ShipController : NetworkMovableObject
         {
             return;
         }
-        gameObject.name = playerName;
+        gameObject.name = _playerName;
         _cameraOrbit = FindObjectOfType<CameraOrbit>();
         _cameraOrbit.Initiate(_cameraAttach == null ? transform : _cameraAttach);
         _playerLabel = GetComponentInChildren<PlayerLabel>();
@@ -65,7 +67,31 @@ public class ShipController : NetworkMovableObject
     [ClientCallback] 
     private void LateUpdate() 
     { 
-        _cameraOrbit?.CameraMovement(); 
+        _cameraOrbit?.CameraMovement();
+        gameObject.name = _playerName;
+    }
+
+    [ServerCallback]
+    private void OnCollisionEnter(Collision collision)
+    {
+        RpcRespawn();
+    }
+
+    [ClientRpc]
+    private async void RpcRespawn()
+    {
+        gameObject.SetActive(false);
+
+        if (hasAuthority)
+        {
+            
+            var spawns = _spawns.GetComponentsInChildren<NetworkStartPosition>();
+            var number = Random.Range(0, spawns.Length - 1);
+
+            gameObject.transform.position = spawns[number].transform.position;
+        }
+        await Task.Delay(1000);
+        gameObject.SetActive(true);
     }
 
 }

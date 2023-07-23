@@ -21,6 +21,12 @@ public class SolarSystemNetworkManager : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId); 
     }
 
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        base.OnServerDisconnect(conn);
+        _players.Remove(conn.connectionId);
+    }
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -38,8 +44,8 @@ public class SolarSystemNetworkManager : NetworkManager
 
     public void ReceiveName(NetworkMessage networkMessage) 
     {
-        _players[networkMessage.conn.connectionId].playerName = networkMessage.reader.ReadString();
-        _players[networkMessage.conn.connectionId].gameObject.name = _players[networkMessage.conn.connectionId].playerName;
+        _players[networkMessage.conn.connectionId].PlayerName = networkMessage.reader.ReadString();
+        _players[networkMessage.conn.connectionId].gameObject.name = _players[networkMessage.conn.connectionId].PlayerName;
     }
 
 
