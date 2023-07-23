@@ -21,20 +21,9 @@ public class PlayerLabel : MonoBehaviour
             var obj = objects.ElementAt(i).Value;
             var position = camera.WorldToScreenPoint(obj.transform.position);
             var collider = obj.GetComponent<Collider>();
-
-            string name;
-            if (obj.GetComponent<ShipController>() != null)
-            {
-                //name = obj.GetComponent<ShipController>().playerName;
-                name = obj.name;
-            }
-            else
-            {
-                name = obj.name;
-            }
             if (collider != null && isVisibleObjectbyCamera(camera, collider) && obj.transform != transform) 
             { 
-                GUI.Label(new Rect(new Vector2(position.x, Screen.height - position.y), new Vector2(10, name.Length * 10.5f)), name, style);
+                GUI.Label(new Rect(new Vector2(position.x, Screen.height - position.y), new Vector2(10, name.Length * 10.5f)), obj.name, style);
             }
         }
     }
