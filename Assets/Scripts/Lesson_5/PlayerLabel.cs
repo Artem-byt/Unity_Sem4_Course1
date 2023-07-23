@@ -21,7 +21,7 @@ public class PlayerLabel : MonoBehaviour
             var obj = objects.ElementAt(i).Value;
             var position = camera.WorldToScreenPoint(obj.transform.position);
             var collider = obj.GetComponent<Collider>();
-            if (collider != null && isVisibleObjectbyCamera(camera, collider) && obj.transform != transform) 
+            if (collider != null && isVisibleObjectbyCamera(camera, collider) && obj.transform != transform && obj.tag != "Experience") 
             { 
                 GUI.Label(new Rect(new Vector2(position.x, Screen.height - position.y), new Vector2(10, name.Length * 10.5f)), obj.name, style);
             }

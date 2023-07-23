@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -10,10 +11,13 @@ public class ShipController : NetworkMovableObject
     private CameraOrbit _cameraOrbit; 
     private PlayerLabel _playerLabel; 
     private float _shipSpeed; 
-    private Rigidbody _rb; 
+    private Rigidbody _rb;
+    [SerializeField] private EndGamer _endGamer;
     [SerializeField][SyncVar] private string _playerName;
     [SerializeField] private GameObject _spawns;
+    [SerializeField][SyncVar] private int _numberOfPoints;
 
+    public int NumberOfPoints { get { return _numberOfPoints; } }
 
     private void OnGUI() 
     { 
@@ -75,6 +79,56 @@ public class ShipController : NetworkMovableObject
     private void OnCollisionEnter(Collision collision)
     {
         RpcRespawn();
+    }
+
+    [ServerCallback]
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+        _numberOfPoints++;
+        var objects = FindObjectOfType<SolarSystemNetworkManager>().Players;
+        CheckEndGame(objects);
+
+    }
+
+    [ServerCallback]
+    private void CheckEndGame(Dictionary<int, ShipController> players)
+    {
+        int sum = 0;
+        foreach(var player in players)
+        {
+            sum += player.Value.NumberOfPoints;
+        }
+
+        if (sum == 6) 
+        {
+            var playersName = new List<string>();
+            var playersPoints = new List<int>();
+            
+            foreach (var player in players)
+            {
+                playersName.Add(player.Value.PlayerName);
+                playersPoints.Add(player.Value.NumberOfPoints);
+            }
+            foreach(var player in players)
+            {
+                player.Value.RpcEndGame(playersName.ToArray(), playersPoints.ToArray());
+            }
+            
+            
+        }
+    }
+
+    [ClientRpc]
+    public void RpcEndGame(string[] playersName, int[] playersPoints)
+    {
+        gameObject.SetActive(false);
+        if (hasAuthority)
+        {
+            _endGamer.EndGame(playersName, playersPoints);
+        }
+
+
     }
 
     [ClientRpc]

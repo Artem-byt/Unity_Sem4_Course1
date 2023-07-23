@@ -7,9 +7,12 @@ public class SolarSystemNetworkManager : NetworkManager
     [SerializeField] private string _playerName;
 
     private Dictionary<int, ShipController> _players = new Dictionary<int, ShipController>();
+
+    public Dictionary<int, ShipController> Players { get { return _players; } }
     private void Awake()
     {
         _playerName = "Player Name";
+        
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) 
@@ -27,10 +30,10 @@ public class SolarSystemNetworkManager : NetworkManager
         _players.Remove(conn.connectionId);
     }
 
+
     public override void OnStartServer()
     {
         base.OnStartServer();
-
         NetworkServer.RegisterHandler(100, ReceiveName);
     }
 
