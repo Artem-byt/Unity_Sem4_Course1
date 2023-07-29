@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AtmosphereEarth
-  m_Shader: {fileID: 4800000, guid: 1a389cb325162624a87bbea4d4c43909, type: 3}
+  m_Name: TestShader
+  m_Shader: {fileID: 4800000, guid: 59975db223345cf4584bcc705c32bee2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -58,8 +58,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Ambient: -0.08
-    - _AtmosphereSize: 1.15
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -67,19 +65,22 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensive: 0.72
+    - _Height: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Seed: 3328
     - _SmoothnessTextureChannel: 0
-    - _Specular: 48
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AtmosphereColor: {r: 0, g: 0.0727272, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.33962262, g: 0.040049832, b: 0.040049832, a: 1}
+    - _Color1: {r: 0, g: 0.14819956, b: 1, a: 1}
+    - _Color2: {r: 0.00126791, g: 1, b: 0, a: 1}
+    - _Color3: {r: 1, g: 0.027672764, b: 0, a: 1}
+    - _Emission: {r: 0.009433985, g: 0.0046724924, b: 0.005930246, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
